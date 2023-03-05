@@ -67,20 +67,26 @@ public class SpotifyRepository {
     }
 
     public Song createSong(String title, String albumName, int length) throws Exception{
-        if(!albums.contains(albumName)) throw new Exception("Album not found");
-        Album album = new Album();
-        for(Album albumm : albums){
-            if(albumm.getTitle().equals(albumName)){
-                album = albumm;
-                break;
+        try {
+            if (!albums.contains(albumName)) throw new Exception("Album a");
+
+            Album album = new Album();
+            for (Album albumm : albums) {
+                if (albumm.getTitle().equals(albumName)) {
+                    album = albumm;
+                    break;
+                }
             }
+            Song newsong = new Song(title, length);
+            songs.add(newsong);
+            List<Song> songList = albumSongMap.getOrDefault(album, new ArrayList<>());
+            songList.add(newsong);
+            albumSongMap.put(album, songList);
+            return newsong;
         }
-        Song newsong = new Song(title,length);
-        songs.add(newsong);
-        List<Song> songList = albumSongMap.getOrDefault(album,new ArrayList<>());
-        songList.add(newsong);
-        albumSongMap.put(album,songList);
-        return newsong;
+        catch (Exception r){
+            return null;
+        }
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
