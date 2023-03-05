@@ -189,7 +189,9 @@ public class SpotifyRepository {
         Song song = null;
         for(Song song1 : songs){
             if(song1.getTitle().equals(songTitle)){
-                song = song1;
+                song.setLikes(song1.getLikes());
+                song.setLength(song1.getLength());
+                song.setTitle(song1.getTitle());
                 List<User> userList = songLikeMap.getOrDefault(song,new ArrayList<>());
                 User newuser = new User();
                 for(User user1 : users){
@@ -226,10 +228,10 @@ public class SpotifyRepository {
 
     public String mostPopularArtist() {
         String name= null;
-        int cnt=0;
+        int cnt=-1;
         for(Artist artist :artists){
             System.out.println(artist);
-            if(artist.getLikes()>cnt){
+            if(artist.getLikes()>=cnt){
                 cnt = artist.getLikes();
                 name = artist.getName();
             }
@@ -239,7 +241,7 @@ public class SpotifyRepository {
 
     public String mostPopularSong() {
         String name = null;
-        int max = 0;
+        int max = -1;
         for(Song song : songLikeMap.keySet()){
             System.out.println(song);
             int size = songLikeMap.get(song).size();
