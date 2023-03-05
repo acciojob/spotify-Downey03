@@ -82,7 +82,6 @@ public class SpotifyRepository {
         try {
             Album album = null;
            for(Album album1 : albums){
-               System.out.println(album);
                if(album1.getTitle().equals(albumName)){
                    album = album1;
                    break;
@@ -104,7 +103,7 @@ public class SpotifyRepository {
             return newsong;
         }
         catch (Exception r){
-            System.out.println(r);
+
             return null;
         }
     }
@@ -198,13 +197,11 @@ public class SpotifyRepository {
 //        if (user == null) throw new Exception("User does not exist");
 //
 //        Playlist newplaylist = new Playlist(title);
-//        System.out.println(newplaylist);
 //
 //        List<Song> songList = new ArrayList<>();
 //        for (Song song : songs) {
 //            if (songTitles.contains(song.getTitle())) {
 //                songList.add(song);
-//                System.out.println(song);
 //            }
 //        }
 //
@@ -295,7 +292,7 @@ public class SpotifyRepository {
         int currentLikes = song.getLikes();
         song.setLikes(currentLikes+1);
 
-        List<User> usersWhoLikesThisSong = new ArrayList<>();
+        List<User> usersWhoLikesThisSong = songLikeMap.get(song);
         if(usersWhoLikesThisSong.contains(user)) return song;
 
         Album album = null;
@@ -314,6 +311,7 @@ public class SpotifyRepository {
             }
         }
 
+        assert artist != null;
         currentLikes = artist.getLikes();
         artist.setLikes(currentLikes+1);
 
