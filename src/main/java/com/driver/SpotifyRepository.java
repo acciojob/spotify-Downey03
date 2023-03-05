@@ -289,11 +289,17 @@ public class SpotifyRepository {
         }
         if(song == null) throw new Exception("Song does not exist");
 
+        List<User> usersWhoLikesThisSong = new ArrayList<>();
+        if(songLikeMap.containsKey(song)){
+            usersWhoLikesThisSong = songLikeMap.get(song);
+        }
+
+        if(usersWhoLikesThisSong.contains(user)) return song;
+
         int currentLikes = song.getLikes();
         song.setLikes(currentLikes+1);
-
-        List<User> usersWhoLikesThisSong = songLikeMap.get(song);
-        if(usersWhoLikesThisSong.contains(user)) return song;
+        usersWhoLikesThisSong.add(user);
+        songLikeMap.put(song,usersWhoLikesThisSong);
 
         Album album = null;
         for (Album album1 : albumSongMap.keySet()){
@@ -311,7 +317,7 @@ public class SpotifyRepository {
             }
         }
 
-        assert artist != null;
+
         currentLikes = artist.getLikes();
         artist.setLikes(currentLikes+1);
 
