@@ -116,6 +116,7 @@ public class SpotifyRepository {
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
+        Playlist newplaylist = new Playlist(title);
         try {
             User user = null;
             for (User user1 : users) {
@@ -124,8 +125,9 @@ public class SpotifyRepository {
                     break;
                 }
             }
+            System.out.println(newplaylist);
             if(user == null) throw new Exception("User does not exist");
-            Playlist newplaylist = new Playlist(title);
+
             System.out.println(newplaylist);
             List<Song> songList = new ArrayList<>();
             for (Song song : songs) {
@@ -140,12 +142,13 @@ public class SpotifyRepository {
             userList.add(user);
             playlistListenerMap.put(newplaylist, userList);
             creatorPlaylistMap.put(user, newplaylist);
-            return newplaylist;
+
         }
         catch (Exception e){
             System.out.println(e);
-            return null;
+
         }
+        return newplaylist;
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
