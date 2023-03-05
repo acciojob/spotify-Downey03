@@ -149,6 +149,7 @@ public class SpotifyRepository {
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
+        Playlist newplaylist = new Playlist(title);
         try {
             User user = new User();
             for (User user1 : users) {
@@ -158,7 +159,7 @@ public class SpotifyRepository {
                 }
             }
             if (user == null) throw new Exception("User does not exist");
-            Playlist newplaylist = new Playlist(title);
+
             System.out.println(newplaylist);
             List<Song> songList = new ArrayList<>();
             for (Song song : songs) {
@@ -173,16 +174,17 @@ public class SpotifyRepository {
             userList.add(user);
             playlistListenerMap.put(newplaylist, userList);
             creatorPlaylistMap.put(user, newplaylist);
-            return newplaylist;
+
         }
         catch (Exception e){
             System.out.println(e);
-            return null;
-        }
 
+        }
+        return newplaylist;
     }
 
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
+        Playlist playlist1 = null;
         try {
 
             User user = null;
@@ -194,7 +196,7 @@ public class SpotifyRepository {
             }
             if (user == null) throw new Exception("User not found");
             System.out.println(user);
-            Playlist playlist1 = null;
+
             for (Playlist playlist : playlists) {
                 if (playlist.getTitle().equals(playlistTitle)) {
                     playlist1 = playlist;
@@ -207,15 +209,17 @@ public class SpotifyRepository {
                 }
             }
             System.out.println(playlist1);
-            return playlist1;
+
         }
         catch (Exception e){
             System.out.println(e);
-            return null;
+
         }
+        return playlist1;
     }
 
     public Song likeSong(String mobile, String songTitle) throws Exception {
+        Song song = null;
         try {
             User user = null;
             for (User user1 : users) {
@@ -226,7 +230,7 @@ public class SpotifyRepository {
             }
             if (user == null) throw new Exception("User does not exist");
 
-            Song song = null;
+
             for (Song song1 : songs) {
                 if (song1.getTitle().equals(songTitle)) {
                     song = song1;
@@ -254,7 +258,7 @@ public class SpotifyRepository {
         }
         catch (Exception e){
             System.out.println(e);
-            return null;
+            return song;
         }
 
     }
