@@ -274,7 +274,6 @@ public class SpotifyRepository {
 
     public Song likeSong(String mobile, String songTitle) throws Exception {
         Song song = null;
-        try {
             User user = null;
             for (User user1 : users) {
                 if (user1.getMobile().equals(mobile)) {
@@ -284,11 +283,10 @@ public class SpotifyRepository {
             }
             if (user == null) throw new Exception("User does not exist");
 
-
             for (Song song1 : songs) {
                 if (song1.getTitle().equals(songTitle)) {
                     song = song1;
-
+                    if(song == null) throw new Exception("Song does not exist");
                     List<User> userList = songLikeMap.getOrDefault(song, new ArrayList<>());
 
                     if (!userList.contains(user)) {
@@ -308,12 +306,6 @@ public class SpotifyRepository {
                 break;
             }
             return song;
-        }
-        catch (Exception e){
-            System.out.println(e);
-            return song;
-        }
-
     }
 
     public String mostPopularArtist() {
