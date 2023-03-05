@@ -126,7 +126,7 @@ public class SpotifyRepository {
 
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
         User newuser = new User("",mobile);
-        Playlist playlist1 = new Playlist();
+        Playlist playlist1 = null;
         for(Playlist playlist : playlists){
             if(playlist.getTitle().equals(playlistTitle)){
                 playlist1 = playlist;
@@ -171,7 +171,7 @@ public class SpotifyRepository {
     }
 
     public String mostPopularArtist() {
-        String name="" ;
+        String name= null;
         int cnt=0;
         for(Artist artist :artists){
             if(artist.getLikes()>cnt){
@@ -183,7 +183,7 @@ public class SpotifyRepository {
     }
 
     public String mostPopularSong() {
-        String name = "";
+        String name = null;
         int max = 0;
         for(Song song : songLikeMap.keySet()){
             int size = songLikeMap.get(song).size();
